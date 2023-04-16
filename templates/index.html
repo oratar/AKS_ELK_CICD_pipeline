@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://kit.fontawesome.com/10d8055a44.js" crossorigin="anonymous"></script></head>
+<body>
+    <h1>Product Catalog</h1>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th></th>
+        </tr>
+        {% for product in products %}
+        <tr>
+            <td>{{ product["name"] }}</td>
+            <td>{{ product["price"] }}</td>
+            <td>
+                <form action="/purchase" method="POST">
+                    <input type="hidden" name="product_name" value="{{ product['name'] }}">
+                    <input type="hidden" name="total_price" value="{{ product['price'] }}">
+                    <input type="number" name="quantity" value="1" min="1" max="10">
+                    <input type="submit" value="add to cart">
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+<a href="/cart">show cart</a>
+<i class="fa-solid fa-cart-shopping"></i>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flash-messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+</body>
+</html>

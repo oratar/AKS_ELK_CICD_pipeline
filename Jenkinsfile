@@ -26,7 +26,7 @@ pipeline {
     }
         post {
 	    always {
-        sh 'sudo docker rm $(docker ps -a -f -q)' 
+        sh 'sudo docker rm -f $(sudo docker ps -a -q)'
         sh 'sudo docker rmi -f $(sudo docker images -q )'
         
 

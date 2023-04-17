@@ -2,7 +2,7 @@ pipeline {
     agent { label 'or_agent'
     }
     environment {
-        dockerhub_or = credentials('dockerhub_or')
+        dockerhub = credentials('dockerhub_or')
     }
     stages {
         stage('Build') {

@@ -13,7 +13,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'sudo docker exec -it catalog bash -c "python3 tests.py"'
+                sh 'sudo docker exec catalog bash -c "python3 tests.py"'
             }
         }
         stage('upload') {

@@ -1,15 +1,16 @@
 pipeline {
-    agent any
+    agent { label 'or_agent' }
 
     stages {
         stage('Build') {
             steps {
-                echo 'Building..'
+                sh 'sudo docker build . -t catalog'
+                sh 'docker run -p 5000:5000 --name catalog catalog
             }
         }
         stage('Test') {
             steps {
-                echo 'test Testing..'
+                sh 'sudo docker exec -it python3 tests.py'
             }
         }
         stage('Deploy') {

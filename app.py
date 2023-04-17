@@ -1,6 +1,12 @@
 from flask import Flask, flash, redirect, render_template, request, url_for
 import pymongo
 from bson import ObjectId
+import logging
+#
+file_path="logging/app.log"
+logging.basicConfig(filename=file_path)
+logger = logging.getLogger('app')
+
 
 app = Flask(__name__)
 
@@ -20,6 +26,7 @@ products = [
 # Routes
 @app.route("/")
 def index():
+    app.logger.warning("user asks for home page")
     return render_template("index.html", products=products)
 
 @app.route("/purchase", methods=["POST"])
@@ -73,4 +80,4 @@ def delete_product():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()

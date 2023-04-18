@@ -43,6 +43,6 @@ spec:
 
         envFrom:
         - configMapRef:
-            name: IMAGE_TAG
+            name: imagetag
 
 

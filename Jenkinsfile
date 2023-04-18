@@ -23,9 +23,9 @@ pipeline {
                 sh 'sudo docker push oratar333/catalog_shop:${BUILD_NUMBER}'
             }
         }
-       stage('deploy') {
-           steps {
-               sh 'kubectl apply -f deployment.yaml'
+        stage('deploy') {
+            steps {
+                sh 'kubectl apply -f deployment.yaml'
                
            }
        }

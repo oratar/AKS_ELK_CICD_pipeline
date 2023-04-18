@@ -19,7 +19,7 @@ pipeline {
         stage('upload') {
             steps {
                 sh 'echo $dockerhub_PSW | sudo docker login -u $dockerhub_USR --password-stdin'
-                sh 'sudo docker image tag oratar333/catalog_shop:latest oratar333/catalog_shop:${BUILD_NUMBER}'
+                sh 'sudo docker image tag catalog:latest oratar333/catalog_shop:${BUILD_NUMBER}'
                 sh 'sudo docker push oratar333/catalog_shop:${BUILD_NUMBER}'
 
             }

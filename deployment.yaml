@@ -34,7 +34,7 @@ spec:
 
       - name: app
 
-        image: oratar333/catalog_shop:${imagetag}
+        image: oratar333/catalog_shop:26 
 
 
         ports:

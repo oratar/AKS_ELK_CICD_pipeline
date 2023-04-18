@@ -26,6 +26,7 @@ pipeline {
         stage('deploy') {
             steps {
                 sh 'kubectl apply -f deployment.yaml'
+                sh 'kubectl set image deployments/app app=oratar333/catalog_shop:${BUILD_NUMBER}'
                 sh 'kubectl apply -f service.yaml'
                
            }

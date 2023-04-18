@@ -26,7 +26,7 @@ pipeline {
         stage('deploy') {
             steps {
                 sh 'kubectl apply -f deployment.yaml'
-                sh 'kubectl apply -f server.yaml'
+                sh 'kubectl apply -f service.yaml'
                
            }
        }

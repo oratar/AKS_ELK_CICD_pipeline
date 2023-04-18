@@ -34,13 +34,15 @@ spec:
 
       - name: app
 
-        image: oratar333/catalog_shop:latest
+        image: oratar333/catalog_shop:${IMAGE_TAG}
 
 
         ports:
 
         - containerPort: 5000
 
-
+        envFrom:
+        - configMapRef:
+            name: IMAGE_TAG
 
 

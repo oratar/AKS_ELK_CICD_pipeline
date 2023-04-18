@@ -19,8 +19,6 @@ pipeline {
         stage('upload') {
             steps {
                 sh 'echo $dockerhub_PSW | sudo docker login -u $dockerhub_USR --password-stdin'
-                sh 'sudo docker image tag catalog:latest oratar333/catalog_shop:latest'
-                sh 'sudo docker push oratar333/catalog_shop:latest'
                 sh 'sudo docker image tag oratar333/catalog_shop:latest oratar333/catalog_shop:${BUILD_NUMBER}'
                 sh 'sudo docker push oratar333/catalog_shop:${BUILD_NUMBER}'
 
@@ -29,7 +27,8 @@ pipeline {
         stage('deploy') {
             steps {
                 sh 'kubectl apply -f configmap.yaml'
-                sh "kubectl patch configmap imagetag -p '{\"data\": {\"env\": ${BUILD_NUMBER}}}'"
+                sh 'kubectl patch configmap imagetag -p \'{"data": {"env": "' + "${BUILD_NUMBER}".toString() + '"}}\''
+
                 sh 'kubectl apply -f deployment.yaml'
 //                sh 'kubectl set image deployments/app app=oratar333/catalog_shop:${BUILD_NUMBER}'
                 sh 'kubectl apply -f service.yaml'

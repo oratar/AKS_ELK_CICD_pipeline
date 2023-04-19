@@ -26,10 +26,8 @@ pipeline {
         }
         stage('deploy') {
             steps {
-     //           sh 'kubectl apply -f configmap.yaml'
-   //             sh 'kubectl patch configmap imagetag -p \'{"data": {"env": "' + "${BUILD_NUMBER}".toString() + '"}}\''
-
- //               sh 'kubectl apply -f deployment.yaml'
+                sh 'kubectl apply -f pv.yaml'
+                sh 'kubectl apply -f pvc.yaml'
                 sh 'kubectl set image deployments/app app=oratar333/catalog_shop:${BUILD_NUMBER} -o yaml --dry-run=client | kubectl apply -f -'
                 sh 'kubectl apply -f service.yaml'
                

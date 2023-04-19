@@ -112,26 +112,9 @@ metadata:
 data:
   filebeat.yml: |-
     filebeat.inputs:
-    - type: container
+    - type: log
       paths:
-        - /var/log/containers/*.log
-      processors:
-        - add_kubernetes_metadata:
-            host: ${NODE_NAME}
-            matchers:
-            - logs_path:
-                logs_path: "/var/log/containers/"
-
-    # To enable hints based autodiscover, remove `filebeat.inputs` configuration and uncomment this:
-    #filebeat.autodiscover:
-    #  providers:
-    #    - type: kubernetes
-    #      node: ${NODE_NAME}
-    #      hints.enabled: true
-    #      hints.default_config:
-    #        type: container
-    #        paths:
-    #          - /var/log/containers/*${data.kubernetes.container.id}.log
+        - /usr/share/filebeat/applog/app.log
 
     processors:
       - add_cloud_metadata:
@@ -141,7 +124,7 @@ data:
     cloud.auth: ${ELASTIC_CLOUD_AUTH}
 
     output.elasticsearch:
-      hosts: ['${ELASTICSEARCH_HOST:elasticsearch}:${ELASTICSEARCH_PORT:9200}']
+      hosts: ['43.207.157.93:9200']
       username: ${ELASTICSEARCH_USERNAME}
       password: ${ELASTICSEARCH_PASSWORD}
 ---
@@ -167,14 +150,14 @@ spec:
       dnsPolicy: ClusterFirstWithHostNet
       containers:
       - name: filebeat
-        image: docker.elastic.co/beats/filebeat:8.7.0
+        image: docker.elastic.co/beats/filebeat:7.2.1
         args: [
           "-c", "/etc/filebeat.yml",
           "-e",
         ]
         env:
         - name: ELASTICSEARCH_HOST
-          value: elasticsearch
+          value: 43.207.157.93
         - name: ELASTICSEARCH_PORT
           value: "9200"
         - name: ELASTICSEARCH_USERNAME
@@ -212,6 +195,8 @@ spec:
         - name: varlog
           mountPath: /var/log
           readOnly: true
+        - name: log
+          mountPath: /usr/share/filebeat/applog
       volumes:
       - name: config
         configMap:
@@ -229,4 +214,8 @@ spec:
           # When filebeat runs as non-root user, this directory needs to be writable by group (g+w).
           path: /var/lib/filebeat-data
           type: DirectoryOrCreate
+      - name: log
+        persistentVolumeClaim:
+          claimName: nfs-sec
 ---
+

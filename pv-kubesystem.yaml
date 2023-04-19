@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: nfs
+  name: nfs-sec
 spec:
   storageClassName: nfs
   capacity:
@@ -13,7 +13,6 @@ spec:
     - hard
     - nfsvers=4.1
   nfs:
-    path: /mnt/nfs_share 
+    path: /mnt/nfs_share
     server: 52.194.225.19
-    
 

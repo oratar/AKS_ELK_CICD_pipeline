@@ -41,7 +41,6 @@ Run the following commands in the 'aks' directory:
    3. In the Jenkins UI, create a new Node and connect your Jenkins agent by running the agent JAR file.
 
 ### Configure ELK stack:
- Create ELK stack on EC2 instance using Docker container:
     1. Create an EC2 instance for your ELK stack and open ports 5601, 9200 and 5044.
     2. Connect to your instance and run the following command to create the ELK stack docker container:
     ```

@@ -41,12 +41,12 @@ Run the following commands in the 'aks' directory:
    3. In the Jenkins UI, create a new Node and connect your Jenkins agent by running the agent JAR file.
 
 ### Configure ELK stack:
-    1. Create an EC2 instance for your ELK stack and open ports 5601, 9200 and 5044.
-    2. Connect to your instance and run the following command to create the ELK stack docker container:
-    ```
-    sudo sysctl -w vm.max_map_count=262144
-    sudo docker run -p 5601:5601 -p 9200:9200 -p 5044:5044 -it --name elk sebp/elk
-    ```
+   1. Create an EC2 instance for your ELK stack and open ports 5601, 9200 and 5044.
+   2. Connect to your instance and run the following command to create the ELK stack docker container:
+   ```
+   sudo sysctl -w vm.max_map_count=262144
+   sudo docker run -p 5601:5601 -p 9200:9200 -p 5044:5044 -it --name elk sebp/elk
+   ```
 
    
-# CI/CD_project![Screenshot from 2023-05-18 17-32-12](https://github.com/oratar/mix_project_repo/assets/121873526/8c97e5e0-c98a-4513-994b-aba2dbe23c36)
+# [Screenshot from 2023-05-18 17-32-12](https://github.com/oratar/mix_project_repo/assets/121873526/8c97e5e0-c98a-4513-994b-aba2dbe23c36)

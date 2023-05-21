@@ -15,15 +15,16 @@ spec:
         app: app
     spec:
       volumes:
-        - name: nfs-volume
-          persistentVolumeClaim:
-            claimName: nfs
+        - name: log
+          hostPath:
+            path: /log/app
+            type: DirectoryOrCreate
       containers:
         - name: app
           image: oratar333/catalog_shop:31
           ports:
             - containerPort: 5000
           volumeMounts:
-            - mountPath: "/depend/logging"
-              name: nfs-volume
+            - mountPath: /depend/logging
+              name: log
 

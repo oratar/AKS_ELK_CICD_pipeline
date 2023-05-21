@@ -124,7 +124,7 @@ data:
     cloud.auth: ${ELASTIC_CLOUD_AUTH}
 
     output.elasticsearch:
-      hosts: ['43.207.157.93:9200']
+      hosts: ['ELASTICSEARCH_USERNAME_IP:9200']
       username: ${ELASTICSEARCH_USERNAME}
       password: ${ELASTICSEARCH_PASSWORD}
 ---
@@ -215,7 +215,8 @@ spec:
           path: /var/lib/filebeat-data
           type: DirectoryOrCreate
       - name: log
-        persistentVolumeClaim:
-          claimName: nfs-sec
+        hostPath:
+            path: /log/app
+            type: DirectoryOrCreate           
 ---
 

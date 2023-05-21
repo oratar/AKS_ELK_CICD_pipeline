@@ -13,13 +13,14 @@ This project demonstrates a CI/CD pipeline using Jenkins, Terraform, Docker, AKS
 
 ## SETUP
 ### Clone the git repository:
+   ```
    git clone https://github.com/oratar/AKS_ELK_cicd_pipeline
-
+   ```
 ### Create the AKS cluster using terraform:
 make sure you are logged in to your Azure account:
-`
+```
    az login
-`
+```
 Run the following commands in the 'aks' directory: 
 ```
    terraform init 
@@ -28,9 +29,9 @@ Run the following commands in the 'aks' directory:
 ### Configure Jenkins:
    1. Create an EC2 instance for your Jenkins master and open port 50000 and 8080 in the instance's security group.
    2. Connect to your instance and run the following command:
-   ` 
+   ``` 
    docker run -p 8080:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts-jdk11
-   `
+   ```
    3. Access your Jenkins master's UI through the web: http://<Jenkins_IP>:8080
    4. Configure the project settings in Jenkins, including the Git repository, webhook, DockerHub credentials, etc.
    

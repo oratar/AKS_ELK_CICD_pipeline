@@ -1,6 +1,6 @@
 # AKS_ELK_cicd_pipeline
 
-This project demonstrates a CI/CD pipeline using Jenkins, Terraform, Docker, AKS (Azure Kubernetes Service), ElasticSearch and Filebeat using multi cloud environment such as AWS and Azure. The pipeline enables automatic deployment of a CRUD Python Flask application to an AKS cluster, along with log forwarding to an ELK (Elasticsearch, Logstash, and Kibana) stack for centralized log analysis.
+This project demonstrates a CI/CD pipeline using Jenkins, Terraform, Docker, AKS (Azure Kubernetes Service), Elasticsearch, Filebeat and Kibana .                                          The pipeline enables automatic deployment of a CRUD Python Flask application to an AKS cluster, along with log forwarding to an ELK stack for centralized log analysis.                    The project is designed to work in a multi-cloud environment, supporting both AWS and Azure.
 
 ## Prerequisites
 

@@ -26,10 +26,6 @@ pipeline {
         }
         stage('deploy') {
             steps {
-                sh 'kubectl apply -f pv.yaml'
-                sh 'kubectl apply -f pvc.yaml'
-                sh 'kubectl apply -f pv-kubesystem.yaml -n kube-system'
-                sh 'kubectl apply -f pvc-sec.yaml -n kube-system'
                 sh 'kubectl set image deployments/app app=oratar333/catalog_shop:${BUILD_NUMBER} -o yaml --dry-run=client | kubectl apply -f -'
                 sh 'kubectl apply -f service.yaml'
                 sh 'kubectl apply -f filebeat-kubernetes.yaml'

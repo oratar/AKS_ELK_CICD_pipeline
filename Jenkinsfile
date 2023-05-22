@@ -1,6 +1,7 @@
-podTemplate {
-    node ('jenkins_agent')
-	{
+pipeline {
+    agent {
+        label 'jenkins_agent'
+    }
     environment {
         dockerhub = credentials('dockerhub_or')
     }
@@ -42,5 +43,5 @@ podTemplate {
 
     }
 	}
-	}
+	
 }

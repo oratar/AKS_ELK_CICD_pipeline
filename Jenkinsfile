@@ -1,5 +1,5 @@
 podTemplate {
-    node ('jenkins-agent')
+    node ('jenkins_agent')
 	{
     environment {
         dockerhub = credentials('dockerhub_or')

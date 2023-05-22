@@ -1,11 +1,4 @@
-podTemplate(yaml: '''
-    apiVersion: v1
-    kind: Pod
-    spec:
-      containers:
-      - name: docker
-        image: docker:latest
-''') {
+podTemplate {
     node('jenkins-slave') {
         environment {
             dockerhub = credentials('dockerhub_or')

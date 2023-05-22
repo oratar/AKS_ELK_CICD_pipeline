@@ -7,7 +7,7 @@ podTemplate (containers: [
         }
         stage('build docker image') {
 
-        container('maven') {
+        container('docker') {
             stage('Build') {
                 sh 'docker build -t catalog . '
         }

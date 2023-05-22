@@ -10,13 +10,12 @@ podTemplate(yaml: '''
         environment {
             dockerhub = credentials('dockerhub_or')
         }
-        stages {
             stage('Build') {
                     container('docker') {
                         sh 'sudo docker build . -t catalog'
                         sh 'sudo docker run -p 5000:5000 --name catalog catalog &'
                     
-                }
+                
             }
         }
     }

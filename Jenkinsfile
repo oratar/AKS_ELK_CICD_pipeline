@@ -1,5 +1,6 @@
-podTemplate {
-   containerTemplate(name: 'docker', image: 'docker:latest', command: 'sleep', args: '99d'),
+podTemplate (containers: [
+   containerTemplate(name: 'docker', image: 'docker:latest', command: 'sleep', args: '99d')
+]) {
     node('jenkins-slave') {
        environment {
             dockerhub = credentials('dockerhub_or')
@@ -8,7 +9,9 @@ podTemplate {
 
         container('maven') {
             stage('Build') {
-                        sh 'docker build -t catalog . '
+                sh 'docker build -t catalog . '
         }
+       }
     }
+  }
 }

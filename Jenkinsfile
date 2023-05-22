@@ -1,5 +1,5 @@
 podTemplate (containers: [
-   containerTemplate(name: 'docker', image: 'docker:latest', command: 'sleep', args: '99d')
+   containerTemplate(name: 'docker', image: 'docker:dind')
 ]) {
     node('jenkins-slave') {
        environment {

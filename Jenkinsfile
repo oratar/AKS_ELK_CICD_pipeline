@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        label 'kubernetes'
+        label 'jenkins_agent'
     }
     environment {
         dockerhub = credentials('dockerhub_or')

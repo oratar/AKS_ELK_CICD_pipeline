@@ -3,6 +3,6 @@
                 sh 'docker build -t catalog . '
         
        
-    }
+    
   }
 }

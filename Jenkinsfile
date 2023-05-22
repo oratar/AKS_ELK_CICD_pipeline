@@ -11,7 +11,7 @@ podTemplate(yaml: '''
 
         container('docker') {
                 sh 'docker build -t catalog . '
-        }
+        
        }
     }
   }

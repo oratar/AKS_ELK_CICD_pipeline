@@ -44,8 +44,8 @@ spec:
   }
     stage('deploy') {
       steps {
-        script {
-          kubernetesDeploy(configs: "./manifests/deployment.yaml")
+        withKubeConfig([credentialsId:'kubeconfig', serverUrl:'https://learnk8scluster-fxdnjc5g.hcp.northeurope.azmk8s.io:443']){
+          sh 'kubectl apply -f ./src/deployment.yaml'
         }
       }
     }

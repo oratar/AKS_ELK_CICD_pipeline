@@ -9,21 +9,12 @@ metadata:
 spec: 
     containers: 
       - name: docker-cmds 
-        image: docker:1.12.6 
-        command: ['docker', 'run', '-p', '80:80', 'httpd:latest'] 
-        resources: 
-            requests: 
-                cpu: 10m 
-                memory: 256Mi 
+        image: docker:latest  
         env: 
           - name: DOCKER_HOST 
             value: tcp://localhost:2375 
       - name: dind-daemon 
-        image: docker:1.12.6-dind 
-        resources: 
-            requests: 
-                cpu: 20m 
-                memory: 512Mi 
+        image: docker:dind 
         securityContext: 
             privileged: true 
         volumeMounts: 

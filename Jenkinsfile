@@ -19,12 +19,17 @@ podTemplate(yaml: '''
 
 node('jenkins-slave') {
         stage('build docker image') {
-          git 'https://github.com/jenkinsci/kubernetes-plugin.git'
-           container('docker') {
-                   stage('Build docker image') {
-                      sh 'docker build -t catalog . '
+                agent{
+                     docker {
+                             image 'docker:dind'
+                             args '--entrypoint="" --user=root'
+                             reuseNode true
                    }
+                }
+                steps{
+                        sh 'docker build -t catalog . '
+                }
            }
         }
-  }
+  
 }

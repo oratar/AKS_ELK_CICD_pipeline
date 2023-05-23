@@ -19,7 +19,7 @@ podTemplate(yaml: '''
 
 node('jenkins-slave') {
         stage('build docker image') {
-           container('jnlp') {
+           container('docker') {
                 sh 'docker build -t catalog . '
         
            }

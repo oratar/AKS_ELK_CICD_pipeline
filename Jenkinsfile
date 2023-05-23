@@ -26,9 +26,9 @@ spec:
 ''' 
     }
   }
-container('dind-daemon') {
   stages {
     stage('build') {
+    container('dind-daemon') {
       steps {
                 sh ' docker build -t catalog ./src/'
         }
@@ -37,5 +37,6 @@ container('dind-daemon') {
                 sh 'docker run -p 5000:5000 catalog' 
       } 
  }
+  }
 }
-}
+

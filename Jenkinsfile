@@ -3,7 +3,7 @@ podTemplate(yaml: '''
         kind: Pod
         spec:
           containers:
-          - name: jnlp
+          - name: docker
             image: docker:latest
             command:
             - cat

@@ -1,4 +1,7 @@
-podTemplate(yaml: '''
+pipeline {
+  agent {
+    kubernetes {
+      yaml: '''
         apiVersion: v1
         kind: Pod
         spec:
@@ -15,11 +18,16 @@ podTemplate(yaml: '''
           - name: docker-sock
             hostPath:
               path: /var/run/docker.sock    
-''') {  
+''' 
+    }
+  }
 
-node('jenkins-slave') {
-        stage('build docker image') {
-                docker.build("catalog:latest","./src/")
+  stages {
+    stage('build') {
+      steps {
+        container('docker') {
+                sh 'docker'
         }
-}
+      } 
+ }
 }

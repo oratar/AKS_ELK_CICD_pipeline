@@ -31,7 +31,6 @@ spec:
       steps {
            container('dind-daemon') {
                 sh ' docker build -t catalog ./src/'
-                sh 'docker run -d -p 5000:5000 --name catalog-container catalog'
 
         }
       } 
@@ -47,7 +46,7 @@ spec:
     stage('deploy') {
       steps {
         script {
-          kubernetesDeploy(configs: "./manifests/deployment.yaml)
+          kubernetesDeploy(configs: "./manifests/deployment.yaml")
         }
       }
     }

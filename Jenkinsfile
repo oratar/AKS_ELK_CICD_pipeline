@@ -19,9 +19,11 @@ podTemplate(yaml: '''
 
 node('jenkins-slave') {
         stage('build docker image') {
+          git 'https://github.com/jenkinsci/kubernetes-plugin.git'
            container('docker') {
-                sh 'docker build -t catalog . '
-        
+                   stage('Build docker image') {
+                      sh 'docker build -t catalog . '
+                   }
            }
         }
   }

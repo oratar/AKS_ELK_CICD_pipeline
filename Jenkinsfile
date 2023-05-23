@@ -19,17 +19,7 @@ podTemplate(yaml: '''
 
 node('jenkins-slave') {
         stage('build docker image') {
-                agent{
-                     docker {
-                             image 'docker:dind'
-                             args '--entrypoint="" --user=root'
-                             reuseNode true
-                   }
-                }
-                steps{
-                        sh 'docker build -t catalog . '
-                }
-           }
+                docker.build("catalog:latest","./src/)
         }
-  
+}
 }

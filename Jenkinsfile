@@ -27,8 +27,8 @@ spec:
     }
   }
   stages {
+   container('dind-daemon') {
     stage('build') {
-    container('dind-daemon') {
       steps {
                 sh ' docker build -t catalog ./src/'
         }

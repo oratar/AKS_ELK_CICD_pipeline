@@ -23,9 +23,9 @@ app.config['SECRET_KEY'] = '661a50e0edbb39371492d2a3518cb98b94c7b22efc972448c8' 
 
 
 # MongoDB client
-mongo_usr = ''  # MongoDB username
-mongo_pass = '' # MongoDB password
-client = pymongo.MongoClient("mongodb+srv://(monogo_usr):(monogo_pass)@cluster0.xyggxii.mongodb.net/?retryWrites=true&w=majority")
+mongo_usr = 'oratar333'  # MongoDB username
+mongo_pass = 'Aa123456' # MongoDB password
+client = pymongo.MongoClient(f"mongodb+srv://{monogo_usr}:{monogo_pass}@cluster0.xyggxii.mongodb.net/?retryWrites=true&w=majority")
 collection = client.products.products
 
 # Product catalog

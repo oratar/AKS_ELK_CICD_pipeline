@@ -22,7 +22,7 @@ node('jenkins-slave') {
            container('jnlp') {
                 sh 'docker build -t catalog . '
         
-       
            }
+        }
   }
 }

@@ -8,6 +8,8 @@ metadata:
     name: dind 
 spec: 
     containers: 
+      - name: kubectl
+        image: bitnami/kubectl:latest
       - name: docker-cmds 
         image: docker:latest  
         env: 
@@ -44,9 +46,11 @@ spec:
   }
     stage('deploy') {
       steps {
+       container('kubectl') {
         withKubeConfig([credentialsId:'kubeconfig']){
           sh 'kubectl apply -f ./manifests/deployment.yaml'
         }
+       }
       }
     }
 }

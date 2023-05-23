@@ -26,7 +26,7 @@ pipeline {
     stage('build') {
       steps {
         container('docker') {
-                sh 'ls'
+                sh 'docker build -t catalog .'
         }
       } 
  }

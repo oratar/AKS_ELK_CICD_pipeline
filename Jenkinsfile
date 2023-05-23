@@ -35,8 +35,9 @@ spec:
       } 
     }
     stage('test') {
+      steps {
                 sh 'docker run -p 5000:5000 catalog' 
       }
   }
 }
-
+}

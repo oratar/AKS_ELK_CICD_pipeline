@@ -36,7 +36,9 @@ spec:
     }
     stage('test') {
       steps {
-                sh 'docker run -p 5000:5000 catalog' 
+         container('dind-daemon') {
+                sh 'docker run -p 5000:5000 catalog'
+         }
       }
   }
 }

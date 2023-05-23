@@ -19,7 +19,7 @@ podTemplate(yaml: '''
 
 node('jenkins-slave') {
         stage('build docker image') {
-                docker.build("catalog:latest","./src/)
+                docker.build("catalog:latest","./src/")
         }
 }
 }

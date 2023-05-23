@@ -30,7 +30,7 @@ spec:
   stages {
     stage('build') {
       steps {
-        container('docker-cmds') {
+        container('dind-daemon') {
                 sh 'sudo docker build -t catalog .'
         }
       } 

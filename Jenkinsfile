@@ -38,8 +38,7 @@ spec:
     stage('test') {
       steps {
          container('dind-daemon') {
-                sh 'docker run -d -p 5000:5000 --name catalog-container catalog'
-                sh 'docker exec catalog-container bash -c "python3 tests.py"'
+                sh 'docker run -d -p 5000:5000 --name catalog-container catalog && docker exec catalog-container bash -c "python3 tests.py"'
          }
       }
   }

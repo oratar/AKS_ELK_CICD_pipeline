@@ -27,7 +27,6 @@ spec:
     }
   }
   stages {
-    stage('idk'){
     stage('build') {
       steps {
            container('dind-daemon') {
@@ -37,8 +36,7 @@ spec:
     }
     stage('test') {
                 sh 'docker run -p 5000:5000 catalog' 
-      } 
-   }
+      }
   }
 }
 

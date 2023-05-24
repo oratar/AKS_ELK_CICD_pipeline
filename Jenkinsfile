@@ -54,7 +54,7 @@ spec:
     stage('upload') {
       steps {
         container('dind-daemon') {
-                sh 'echo $dockerhub_PSW | sudo docker login -u $dockerhub_USR --password-stdin'
+                sh 'echo $dockerhub_PSW | docker login -u $dockerhub_USR --password-stdin'
                 sh 'docker image tag catalog:latest oratar333/catalog_shop:${BUILD_NUMBER}'
                 sh 'docker push oratar333/catalog_shop:${BUILD_NUMBER}'
         }

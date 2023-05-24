@@ -55,8 +55,8 @@ spec:
       steps {
         container('dind-daemon') {
                 sh 'echo $dockerhub_PSW | sudo docker login -u $dockerhub_USR --password-stdin'
-                sh 'sudo docker image tag catalog:latest oratar333/catalog_shop:${BUILD_NUMBER}'
-                sh 'sudo docker push oratar333/catalog_shop:${BUILD_NUMBER}'
+                sh 'docker image tag catalog:latest oratar333/catalog_shop:${BUILD_NUMBER}'
+                sh 'docker push oratar333/catalog_shop:${BUILD_NUMBER}'
         }
       }
     }  
@@ -64,6 +64,7 @@ spec:
       steps {
        container('kubectl') {
          withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
+           sh 'sed -i "s/<TAG>/${BUILD_NUMBER}/" deployment.yaml'
            sh 'kubectl apply -f ./manifests/deployment.yaml'
            sh 'kubectl apply -f ./manifests/service.yaml'
            sh 'kubectl apply -f ./manifests/filebeat-kubernetes.yaml'

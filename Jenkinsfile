@@ -8,7 +8,7 @@ pipeline {
     MAJ = '3'
     DOCKERHUB = credentials('dockerhub_or')
     DOCKERHUB_REGISTERY = 'oratar333/catalog_shop'
-    IMG_TAG = "python:$MAJ.${BUILD_NUMBER}"
+    IMG_TAG = "python-$MAJ.${BUILD_NUMBER}"
     
   }
   stages {
@@ -33,7 +33,7 @@ pipeline {
             sh '''
                  echo $DOCKERHUB_PSW | docker login -u $DOCKERHUB_USR --password-stdin
                  docker image tag catalog:latest $DOCKERHUB_REGISTERY:$IMG_TAG
-                 docker push oratar333/catalog_shop:${BUILD_NUMBER}
+                 docker push $DOCKERHUB_REGISTERY:$IMG_TAG
                '''
           }
         }

@@ -13,7 +13,7 @@ spec:
       volumeMounts:
         - name: kubeconfig
           mountPath: /.kube/config
-      command: [""]
+      args: ["cluster-info"]
     - name: docker-cmds
       image: docker:latest
       env:
@@ -58,7 +58,7 @@ spec:
     stage('deploy') {
       steps {
        container('kubectl') {
-         sh 'kubectl'
+         sh 'kubectl get nodes'
        }
       }
     }

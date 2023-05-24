@@ -34,7 +34,6 @@ spec:
   }
    environment {
     dockerhub = credentials('dockerhub_or')
-    kubeconfig = credentials('kubeconfig')
   }
   stages {
     stage('build') {
@@ -52,11 +51,22 @@ spec:
          }
       }
   }
+    stage('upload') {
+      steps {
+        container('dind-daemon') {
+                sh 'echo $dockerhub_PSW | sudo docker login -u $dockerhub_USR --password-stdin'
+                sh 'sudo docker image tag catalog:latest oratar333/catalog_shop:${BUILD_NUMBER}'
+                sh 'sudo docker push oratar333/catalog_shop:${BUILD_NUMBER}'
+        }
+      }
+    }  
     stage('deploy') {
       steps {
        container('kubectl') {
          withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
-           sh 'kubectl get nodes'
+           sh 'kubectl apply -f ./manifests/deployment.yaml'
+           sh 'kubectl apply -f ./manifests/service.yaml'
+           sh 'kubectl apply -f ./manifests/filebeat-kubernetes.yaml'
          }
        }
       }

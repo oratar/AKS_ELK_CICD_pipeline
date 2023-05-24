@@ -64,7 +64,7 @@ spec:
       steps {
        container('kubectl') {
          withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
-           sh 'sed -i "s/<TAG>/${BUILD_NUMBER}/" deployment.yaml'
+           sh 'sed -i "s/<TAG>/${BUILD_NUMBER}/" ./manifests/deployment.yaml'
            sh 'kubectl apply -f ./manifests/deployment.yaml'
            sh 'kubectl apply -f ./manifests/service.yaml'
            sh 'kubectl apply -f ./manifests/filebeat-kubernetes.yaml'

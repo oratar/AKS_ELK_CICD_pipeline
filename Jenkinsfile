@@ -2,30 +2,41 @@ pipeline {
   agent {
     kubernetes {
       yaml '''
-apiVersion: v1 
-kind: Pod 
-metadata: 
-    name: dind 
-spec: 
-    containers: 
-      - name: kubectl
-        image: bitnami/kubectl:latest
-      - name: docker-cmds 
-        image: docker:latest  
-        env: 
-          - name: DOCKER_HOST 
-            value: tcp://localhost:2375 
-      - name: dind-daemon 
-        image: docker:dind 
-        securityContext: 
-            privileged: true 
-        volumeMounts: 
-          - name: docker-graph-storage 
-            mountPath: /var/lib/docker 
-    volumes: 
-      - name: docker-graph-storage 
-        emptyDir: {}  
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dind
+spec:
+  containers:
+    - name: kubectl
+      image: bitnami/kubectl:latest
+      volumeMounts:
+        - name: kubeconfig
+          mountPath: /.kube/config
+      command: [""]
+    - name: docker-cmds
+      image: docker:latest
+      env:
+        - name: DOCKER_HOST
+          value: tcp://localhost:2375
+    - name: dind-daemon
+      image: docker:dind
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - name: docker-graph-storage
+          mountPath: /var/lib/docker
+  volumes:
+    - name: docker-graph-storage
+      emptyDir: {}
+    - name: kubeconfig
+      mountPath: $kubeconfig
+
 ''' 
+    }
+   environment {
+    dockerhub = credentials('dockerhub_or')
+    kubeconfig = credentials('kubeconfig')
     }
   }
   stages {
@@ -47,9 +58,7 @@ spec:
     stage('deploy') {
       steps {
        container('kubectl') {
-        withKubeConfig([credentialsId:'kubeconfig']){
-          sh 'kubectl apply -f ./manifests/deployment.yaml'
-        }
+         sh 'kubectl'
        }
       }
     }

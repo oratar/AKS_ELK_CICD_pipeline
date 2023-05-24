@@ -9,11 +9,10 @@ metadata:
 spec:
   containers:
     - name: kubectl
-      image: bitnami/kubectl:latest
-      volumeMounts:
-        - name: kubeconfig
-          mountPath: /.kube/config
-      args: ["cluster-info"]
+      image: joshendriks/alpine-k8s
+      command: 
+      - /bin/cat
+      tty: true
     - name: docker-cmds
       image: docker:latest
       env:
@@ -29,8 +28,6 @@ spec:
   volumes:
     - name: docker-graph-storage
       emptyDir: {}
-    - name: kubeconfig
-      mountPath: $kubeconfig
 
 ''' 
     }
@@ -58,7 +55,9 @@ spec:
     stage('deploy') {
       steps {
        container('kubectl') {
-         sh 'kubectl get nodes'
+         withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
+           sh 'kubectl get nodes'
+         }
        }
       }
     }

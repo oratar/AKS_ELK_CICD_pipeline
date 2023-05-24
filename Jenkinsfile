@@ -34,10 +34,10 @@ spec:
 
 ''' 
     }
+  }
    environment {
     dockerhub = credentials('dockerhub_or')
     kubeconfig = credentials('kubeconfig')
-    }
   }
   stages {
     stage('build') {

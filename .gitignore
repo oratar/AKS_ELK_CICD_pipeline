@@ -2,4 +2,5 @@
 *.pyc
 *.tfstate 
 *.backup
-./aks/.terraform/*
+**/**/.terraform/*
+**/**/.terraform.lock.hcl

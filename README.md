@@ -34,7 +34,8 @@ Run the following commands in the 'terraform/aks' directory:
    Refer to the official Jenkins guide for detailed instructions on configuring Kubernetes: Jenkins Kubernetes Plugin.
    
 ### Configure ELK stack:
-   To set up the ELK stack, use Terraform to create the ELK stack instance. In the terraform/EC2 directory, run the following commands:   ```
+   To set up the ELK stack, use Terraform to create the ELK stack instance. In the terraform/EC2 directory, run the following commands:  
+   ```
    terraform init 
    terraform apply -var-file=ELK.tfvars
    ```

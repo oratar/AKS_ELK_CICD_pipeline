@@ -48,7 +48,6 @@ pipeline {
                sed -i "s/<TAG>/${BUILD_NUMBER}/" ./manifests/deployment.yaml
                kubectl apply -f ./manifests/deployment.yaml
                kubectl apply -f ./manifests/service.yaml
-               kubectl apply -f ./manifests/filebeat-kubernetes.yaml
                 '''
          }
        }

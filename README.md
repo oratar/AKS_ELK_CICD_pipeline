@@ -1,14 +1,11 @@
 # AKS ELK CICD pipeline
 
-This project demonstrates a CI/CD pipeline using Jenkins, Terraform, Docker, AKS (Azure Kubernetes Service), Elasticsearch, Filebeat and Kibana .                                          The pipeline enables automatic deployment of a CRUD Python Flask application to an AKS cluster, along with log forwarding to an ELK stack for centralized log analysis.                    The project is designed to work in a multi-cloud environment, supporting both AWS and Azure.
-
+This project demonstrates a CI/CD pipeline using Jenkins, Terraform, Docker, AKS (Azure Kubernetes Service), Elasticsearch, Filebeat, and Kibana. The pipeline enables automatic deployment of a Python Flask application with CRUD functionality to an AKS cluster. Additionally, it sets up log forwarding to an ELK stack for centralized log analysis. The project is designed to work in a multi-cloud environment, supporting both AWS and Azure.
 ## Prerequisites
 
-    Azure subscription with access to create AKS clusters
-    Azure CLI installed and configured
-    Docker installed on all EC2 Instances 
+    Azure CLI installed and configured 
+    AWS CLI installed and configured
     Terraform cli installed
-    AWS account 
     MongoDB 
 
 ## SETUP
@@ -17,36 +14,37 @@ This project demonstrates a CI/CD pipeline using Jenkins, Terraform, Docker, AKS
    git clone https://github.com/oratar/AKS_ELK_cicd_pipeline
    ```
 ### Create the AKS cluster using terraform:
-make sure you are logged in to your Azure account:
-```
-   az login
-```
-Run the following commands in the 'aks' directory: 
+Run the following commands in the 'terraform/aks' directory: 
 ```
    terraform init 
    terraform apply 
 ```
 ### Configure Jenkins:
-   1. Create an EC2 instance for your Jenkins master and open port 50000 and 8080 in the instance's security group.
-   2. Connect to your instance and run the following command:
-   ``` 
-   docker run -p 8080:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts-jdk11
+    Create an EC2 instance for your Jenkins master using Terraform. 
+    Navigate to the terraform/EC2 directory and run the following command:
    ```
-   3. Access your Jenkins master's UI through the web: http://<Jenkins_IP>:8080
-   4. Configure the project settings in Jenkins, including the Git repository, webhook, DockerHub credentials, etc.
+   terraform init 
+   terraform apply -var-file=Jenkins.tfvars 
+   ```
+    Access your Jenkins master's UI through the web: http://<Jenkins_IP>:8080
+    Configure the project settings in Jenkins, including the Git repository, webhook, DockerHub credentials, etc.
    
-### Configure Jenkins agent:
-   1. Create an EC2 instance for your Jenkins agent and open port 50000 to allow communication with the Jenkins master.
-   2. Connect to the instance and install Java. 
-   3. In the Jenkins UI, create a new Node and connect your Jenkins agent by running the agent JAR file.
-
+### Configure dynamic Jenkins agent:
+   In the Jenkins UI, install the Kubernetes plugin and configure Jenkins to use a Kubernetes dynamic agent: Navigate to "Manage Nodes and Clouds" -> "Configure Clouds" -> "Add a new cloud" -> "Kubernetes".
+   Refer to the official Jenkins guide for detailed instructions on configuring Kubernetes: Jenkins Kubernetes Plugin.
+   
 ### Configure ELK stack:
-   1. Create an EC2 instance for your ELK stack and open ports 5601, 9200 and 5044.
-   2. Connect to your instance and run the following command to create the ELK stack docker container:
+   To set up the ELK stack, use Terraform to create the ELK stack instance. In the terraform/EC2 directory, run the following commands:   ```
+   terraform init 
+   terraform apply -var-file=ELK.tfvars
    ```
-   sudo sysctl -w vm.max_map_count=262144
-   sudo docker run -p 5601:5601 -p 9200:9200 -p 5044:5044 -it --name elk sebp/elk
-   ```
-
+   Access the Kibana UI at http://<ELK_IP>:5601 to interact with the ELK stack.   
    
-# ![Screenshot from 2023-05-18 17-32-12](https://github.com/oratar/mix_project_repo/assets/121873526/8c97e5e0-c98a-4513-994b-aba2dbe23c36)
+### Configure filebeat deamonset:
+   To enable filebeat daemonset for delivering application logs to Elasticsearch,
+   run the following command from your AKS cluster:
+   ```
+   kubectl apply -f manifests/filebeat-kubernetes.yaml
+   ```
+   ![Screenshot from 2023-05-30 08-17-40](https://github.com/oratar/AKS_ELK_CICD_pipeline/assets/121873526/743e103a-5f60-4ae6-a5eb-13c66c0c3889)
+
